@@ -51,7 +51,7 @@ def valid_proof(block_string, proof):
     guess_hash = hashlib.sha256(guess).hexdigest()
 
     # Change back to 6 zeros
-    return guess_hash[:3] == '000'
+    return guess_hash[:6] == '000000'
 
 
 if __name__ == '__main__':
@@ -79,6 +79,7 @@ if __name__ == '__main__':
         # new_proof = ???
         last_block = data["last_block"]
 
+        print("mining...")
         new_proof = proof_of_work(last_block)
 
         node_id = get_id()
@@ -92,10 +93,9 @@ if __name__ == '__main__':
         # If the server responds with a 'message' 'New Block Forged'
         # add 1 to the number of coins mined and print it.  Otherwise,
         # print the message from the server.
-        if data["message"] == "failure":
-            print(data["message"])
-
-        else:
+        if data["message"] == "New block forged":
             coins_mined += 1
             print(data["message"])
             print(f"Coins mined: {coins_mined}")
+        else:
+            print(data["message"])

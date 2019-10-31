@@ -159,7 +159,7 @@ def mine():
         }
         return jsonify(response), 200
     blockchain.new_transaction(
-        sender='0', 
+        sender='0',
         recipient=sent_id,
         amount='1'
     )
